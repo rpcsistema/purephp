@@ -1,5 +1,7 @@
 # Ambient e segredos
 .env
+# Permitir exemplo de env ser versionado
+!.env.example
 .env.*
 
 # Dependências e builds
