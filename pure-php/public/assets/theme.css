@@ -1,0 +1,148 @@
+/* Tema moderno para RPC-SISTEMA */
+:root {
+  --bg: #0f1216;
+  --surface: #151a20;
+  --text: #e6e8eb;
+  --muted: #9aa3ab;
+  --primary: #48c86a;
+  --primary-700: #34a853;
+  --accent: #42a5f5;
+  --danger: #ef4444;
+  --radius: 10px;
+}
+
+html, body { height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+    Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+.navbar-modern {
+  background: linear-gradient(90deg, #12171d, #161c23);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.navbar-modern .navbar-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 600; color: var(--text);
+}
+.navbar-modern .nav-link { color: var(--text); opacity: .9; }
+.navbar-modern .nav-link:hover { opacity: 1; }
+.navbar-modern .dropdown-menu { background: var(--surface); border-color: rgba(255,255,255,0.08); }
+.navbar-modern .dropdown-item { color: var(--text); }
+.navbar-modern .dropdown-item:hover { background: rgba(255,255,255,0.08); }
+
+.btn-primary { background: var(--primary); border-color: var(--primary); box-shadow: 0 4px 14px rgba(72,200,106,0.25); }
+.btn-primary:hover { background: var(--primary-700); border-color: var(--primary-700); box-shadow: 0 6px 18px rgba(52,168,83,0.35); }
+.btn-outline-light { border-color: rgba(255,255,255,0.3); color: var(--text); }
+.card { background: var(--surface); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+.table { color: var(--text); }
+.table-striped > tbody > tr:nth-of-type(odd) { --bs-table-accent-bg: rgba(255,255,255,0.04); color: var(--text); }
+.alert-info { background-color: rgba(66,165,245,0.15); color: #d6eeff; border-color: rgba(66,165,245,0.2); }
+.alert-warning { background-color: rgba(255,193,7,0.15); color: #ffe8b3; border-color: rgba(255,193,7,0.25); }
+.alert-danger { background-color: rgba(239,68,68,0.15); color: #ffd6d6; border-color: rgba(239,68,68,0.25); }
+
+.footer-modern { color: var(--muted); font-size: 0.9rem; padding: 24px 0; }
+
+/* Login card tweak */
+.login-card { background: var(--surface); }
+.form-control, .form-select { background: #11161c; border-color: rgba(255,255,255,0.1); color: var(--text); }
+.form-control:focus, .form-select:focus { box-shadow: 0 0 0 3px rgba(66,165,245,0.35); border-color: var(--accent); }
+.modal-content { background: var(--surface); border: 1px solid rgba(255,255,255,0.08); }
+.badge.bg-success { background-color: #27c281 !important; }
+.badge.bg-warning { background-color: #ffb020 !important; color: #1a1a1a; }
+.badge.bg-secondary { background-color: #64748b !important; }
+.container .card + .card { margin-top: 16px; }
+
+/* Navbar badge and spacing */
+.navbar-text { color: var(--muted); }
+.navbar-modern .btn { border-radius: 8px; }
+
+/* Contas a pagar - resumo moderno */
+.ap-summary { display: grid; gap: 12px; }
+.ap-tile { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-radius: var(--radius); background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03)); border: 1px solid rgba(255,255,255,0.12); }
+.ap-tile.ap-open { border-left: 4px solid var(--danger); }
+.ap-tile.ap-paid { border-left: 4px solid var(--primary); }
+.ap-label { color: var(--muted); font-size: 0.95rem; }
+.ap-value { font-weight: 700; font-size: 1.4rem; letter-spacing: 0.2px; }
+.ap-progress { margin-top: 8px; }
+.ap-progress-bar { display: flex; width: 100%; height: 8px; border-radius: 999px; overflow: hidden; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); }
+.ap-progress-paid { background: var(--primary); }
+.ap-progress-open { background: rgba(239,68,68,0.85); }
+.ap-progress-meta { display:flex; justify-content: space-between; color: var(--muted); font-size: 0.85rem; margin-top: 6px; }
+
+/* Resumo sticky + chips de status */
+.summary-sticky { position: sticky; top: 48px; z-index: 99; }
+.status-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.status-chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.06); color: var(--text); text-decoration: none; font-weight: 600; }
+.status-chip:hover { background: rgba(255,255,255,0.1); }
+.status-chip.active { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(66,165,245,0.25) inset; }
+.chip-count { background: rgba(255,255,255,0.15); padding: 2px 8px; border-radius: 999px; font-weight: 700; font-size: 0.85rem; }
+
+/* Compactação de filtros */
+.filters-compact { padding: 10px !important; }
+.filters-compact .form-label { font-size: 0.85rem; color: var(--muted); margin-bottom: 4px; }
+.filters-compact .row { --bs-gutter-x: .5rem; --bs-gutter-y: .25rem; }
+.filters-compact .form-control, .filters-compact .form-select { padding: .35rem .5rem; font-size: 0.9rem; min-height: auto; }
+.filters-compact .btn { padding: .4rem .6rem; font-size: 0.9rem; }
+
+/* Compactação do resumo */
+.summary-compact .status-chips { gap: 6px; margin-bottom: 8px; }
+.summary-compact .status-chip { padding: 6px 10px; font-size: 0.85rem; }
+.summary-compact .chip-count { font-size: 0.75rem; padding: 1px 6px; }
+.summary-compact .ap-summary { gap: 8px; }
+.summary-compact .ap-tile { padding: 10px 12px; }
+.summary-compact .ap-label { font-size: 0.85rem; }
+.summary-compact .ap-value { font-size: 1.2rem; }
+.summary-compact .ap-progress { margin-top: 6px; }
+.summary-compact .ap-progress-bar { height: 6px; }
+.summary-compact .ap-progress-meta { font-size: 0.8rem; }
+
+/* Tabela compacta para melhor aproveitamento de espaço */
+.table-compact { font-size: 0.9rem; }
+.table-compact thead th { padding: 6px 8px; }
+.table-compact tbody td { padding: 6px 8px; }
+.table-compact .btn.btn-sm { padding: 2px 6px; font-size: 0.8rem; }
+.table-compact .badge { font-size: 0.75rem; }
+
+/* Variantes XS (extra compactas) */
+.table-compact.table-xs { font-size: 0.8rem; }
+.table-compact.table-xs thead th,
+.table-compact.table-xs tbody td { padding: 4px 6px; }
+.table-compact.table-xs .btn.btn-sm { padding: 1px 4px; font-size: 0.75rem; }
+.table-compact.table-xs .badge { font-size: 0.7rem; padding: 2px 6px; }
+
+.filters-compact.filters-xs { padding: 8px !important; }
+.filters-compact.filters-xs .form-label { font-size: 0.8rem; margin-bottom: 2px; }
+.filters-compact.filters-xs .row { --bs-gutter-x: .4rem; --bs-gutter-y: .2rem; }
+.filters-compact.filters-xs .form-control,
+.filters-compact.filters-xs .form-select { padding: .25rem .45rem; font-size: 0.8rem; min-height: auto; }
+.filters-compact.filters-xs .input-group-text { padding: .25rem .4rem; font-size: 0.75rem; }
+.filters-compact.filters-xs .btn { padding: .3rem .5rem; font-size: 0.8rem; }
+
+.summary-compact.summary-xs .status-chips { gap: 4px; margin-bottom: 6px; }
+.summary-compact.summary-xs .status-chip { padding: 4px 8px; font-size: 0.8rem; }
+.summary-compact.summary-xs .chip-count { font-size: 0.7rem; padding: 1px 5px; }
+.summary-compact.summary-xs .ap-summary { gap: 6px; }
+.summary-compact.summary-xs .ap-tile { padding: 8px 10px; }
+.summary-compact.summary-xs .ap-label { font-size: 0.8rem; }
+.summary-compact.summary-xs .ap-value { font-size: 1.1rem; }
+.summary-compact.summary-xs .ap-progress { margin-top: 4px; }
+.summary-compact.summary-xs .ap-progress-bar { height: 5px; }
+.summary-compact.summary-xs .ap-progress-meta { font-size: 0.75rem; }
+
+/* Sticky XS reduz ainda mais o offset */
+ .summary-sticky.sticky-xs { top: 40px; }
+
+/* XS micro-tight adjustments (extra compact) */
+.table-compact.table-xs { line-height: 1.12; }
+.table-compact.table-xs thead th,
+.table-compact.table-xs tbody td { padding: 3px 6px; }
+.table-compact.table-xs .badge { font-size: 0.65rem; padding: 2px 5px; }
+
+.filters-compact.filters-xs .form-control,
+.filters-compact.filters-xs .form-select { line-height: 1.1; }
+
+.summary-compact.summary-xs .ap-value { font-size: 1.05rem; }
+.summary-compact.summary-xs .ap-label { font-size: 0.78rem; }

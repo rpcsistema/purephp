@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="160" height="160" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1" y1="0.3" y2="0.7">
+      <stop offset="0" stop-color="#2b8f3a"/>
+      <stop offset="1" stop-color="#6bd47f"/>
+    </linearGradient>
+    <radialGradient id="metal" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.45" stop-color="#bbbbbb"/>
+      <stop offset="1" stop-color="#6d6d6d"/>
+    </radialGradient>
+  </defs>
+  <!-- Base circular with gradient -->
+  <circle cx="80" cy="80" r="58" fill="url(#g1)" stroke="#0e1419" stroke-width="4"/>
+  <!-- Waves to the right -->
+  <path d="M120 50 q20 30 0 60" fill="none" stroke="#48c86a" stroke-width="8" stroke-linecap="round" opacity="0.9"/>
+  <path d="M130 40 q28 40 0 80" fill="none" stroke="#48c86a" stroke-width="6" stroke-linecap="round" opacity="0.6"/>
+  <!-- Connecting path -->
+  <path d="M45 90 q20 -40 60 -10" fill="none" stroke="#1a252f" stroke-width="10" stroke-linecap="round" opacity="0.7"/>
+  <!-- Nodes -->
+  <circle cx="40" cy="90" r="12" fill="url(#metal)" stroke="#0e1419" stroke-width="3"/>
+  <circle cx="80" cy="115" r="12" fill="url(#metal)" stroke="#0e1419" stroke-width="3"/>
+  <circle cx="95" cy="55" r="12" fill="url(#metal)" stroke="#0e1419" stroke-width="3"/>
+</svg>

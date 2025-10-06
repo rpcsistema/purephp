@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 64 64" role="img" aria-label="RPC-SISTEMA">
+  <defs>
+    <linearGradient id="gradPrimary" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#48c86a"/>
+      <stop offset="1" stop-color="#34a853"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="rgba(255,255,255,0.35)"/>
+      <stop offset="1" stop-color="rgba(255,255,255,0)"/>
+    </linearGradient>
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Base escura para harmonizar com o topo -->
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="#151a20" stroke="rgba(255,255,255,0.12)" stroke-width="1" />
+
+  <!-- Marca principal -->
+  <circle cx="32" cy="32" r="19.5" fill="url(#gradPrimary)" filter="url(#softShadow)" />
+  <circle cx="32" cy="32" r="22" fill="none" stroke="#42a5f5" stroke-width="2" opacity="0.45" />
+  <rect x="12" y="10" width="40" height="16" rx="8" fill="url(#shine)" opacity="0.35" />
+
+  <!-- Monograma -->
+  <text x="32" y="38" text-anchor="middle" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#ffffff">RPC</text>
+
+  <title>RPC-SISTEMA — Sua empresa sob seu controle total</title>
+</svg>

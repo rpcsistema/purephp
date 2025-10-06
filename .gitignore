@@ -1,0 +1,27 @@
+# Ambient e segredos
+.env
+.env.*
+
+# Dependências e builds
+vendor/
+node_modules/
+dist/
+
+# Laravel cache e storage
+bootstrap/cache/*
+storage/
+public/storage
+
+# Pure PHP sessions
+pure-php/storage/sessions/
+
+# Artefatos e arquivos grandes
+saas-app.tar.gz
+
+# Logs e temporários
+*.log
+*.tmp
+*.swp
+*.swo
+*.DS_Store
+Thumbs.db
