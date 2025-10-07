@@ -36,6 +36,41 @@ function ghRequest(string $url, ?string $token): array {
     return $json;
 }
 
+function getUrlSize(string $url, ?string $token): int {
+    $headers = [ 'User-Agent: Saaswl-Updater' ];
+    if ($token) { $headers[] = 'Authorization: Bearer ' . $token; }
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [
+        CURLOPT_NOBODY => true,
+        CURLOPT_HEADER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTPHEADER => $headers,
+        CURLOPT_TIMEOUT => 20,
+    ]);
+    $resp = curl_exec($ch);
+    $len = (int)curl_getinfo($ch, CURLINFO_CONTENT_LENGTH_DOWNLOAD);
+    curl_close($ch);
+    if ($len > 0) { return $len; }
+    // Fallback: parse headers
+    if (is_string($resp)) {
+        foreach (explode("\r\n", $resp) as $line) {
+            if (stripos($line, 'Content-Length:') === 0) {
+                $val = trim(substr($line, strlen('Content-Length:')));
+                $num = (int)$val;
+                if ($num > 0) { return $num; }
+            }
+        }
+    }
+    return 0;
+}
+
+function formatBytes(int $bytes): string {
+    $units = ['B','KB','MB','GB','TB'];
+    $i = 0; $val = (float)$bytes;
+    while ($i < count($units)-1 && $val >= 1024) { $val /= 1024; $i++; }
+    return ($i === 0 ? number_format($val, 0) : number_format($val, 2)) . ' ' . $units[$i];
+}
+
 // Ações: checar a última release e baixar um asset
 try {
     // Resolver owner/repo a partir de entradas flexíveis (nome simples, owner/repo, URL http(s) ou SSH, com/sem .git)
@@ -49,7 +84,7 @@ try {
         $repoSlug = $m[1] . '/' . $m[2];
     }
     // URL com caminho extra (e.g., termina com barra) – normalizar
-    elseif (preg_match('#^https?://github\.com/([^/]+)/([^/?#]+)#i', $input, $m)) {
+    elseif (preg_match('#^https?://github\.com/([^/]+)/([^/?\#]+)#i', $input, $m)) {
         $name = preg_replace('/\.git$/i', '', $m[2]);
         $repoSlug = $m[1] . '/' . $name;
     }
@@ -111,7 +146,20 @@ try {
         'html_url' => $latest['html_url'] ?? '',
         'body' => $latest['body'] ?? '',
     ];
-    $assets = is_array($latest['assets'] ?? null) ? $latest['assets'] : [];
+    $assetsRaw = is_array($latest['assets'] ?? null) ? $latest['assets'] : [];
+    // Resolver tamanhos e normalizar lista de assets para exibição
+    $assets = [];
+    foreach ($assetsRaw as $a) {
+        $downloadUrl = $a['browser_download_url'] ?? '';
+        $sizeBytes = (int)($a['size'] ?? 0);
+        if ($sizeBytes <= 0 && $downloadUrl) { $sizeBytes = getUrlSize($downloadUrl, $token); }
+        $assets[] = [
+            'name' => $a['name'] ?? 'arquivo',
+            'browser_download_url' => $downloadUrl,
+            'size_bytes' => $sizeBytes,
+            'size_pretty' => formatBytes($sizeBytes),
+        ];
+    }
 } catch (Throwable $e) {
     $error = $e->getMessage();
 }
@@ -127,6 +175,7 @@ try {
 <body>
 <div class="container mt-4">
   <h3>Atualizações (GitHub)</h3>
+  <div class="alert alert-info py-1 px-2 mb-3" style="display:inline-block">Rótulo de teste: build local</div>
   <?php if ($error): ?><div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div><?php endif; ?>
   <?php if ($info): ?><div class="alert alert-success"><?php echo htmlspecialchars($info); ?></div><?php endif; ?>
 
@@ -174,7 +223,7 @@ try {
                 <div class="d-flex justify-content-between align-items-center">
                   <div>
                     <div><strong><?php echo htmlspecialchars($a['name'] ?? 'arquivo'); ?></strong></div>
-                    <div class="small">Tamanho: <?php echo number_format((float)($a['size'] ?? 0)/1024/1024, 2); ?> MB</div>
+                    <div class="small">Tamanho: <?php echo htmlspecialchars($a['size_pretty'] ?? '0 B'); ?></div>
                   </div>
                   <?php if ($downloadUrl): ?>
                     <form method="post">
@@ -186,6 +235,14 @@ try {
                 </div>
               </div>
             <?php endforeach; ?>
+          </div>
+          <div class="mt-3">
+            <span class="small text-muted">Também disponível:</span>
+            <?php if (!empty($release['tag_name'])): ?>
+              <?php $tag = urlencode($release['tag_name']); ?>
+              <a class="btn btn-outline-secondary btn-sm" target="_blank" href="https://github.com/<?php echo htmlspecialchars($repoSlug); ?>/archive/refs/tags/<?php echo htmlspecialchars($release['tag_name']); ?>.zip">Source code (zip)</a>
+              <a class="btn btn-outline-secondary btn-sm" target="_blank" href="https://github.com/<?php echo htmlspecialchars($repoSlug); ?>/archive/refs/tags/<?php echo htmlspecialchars($release['tag_name']); ?>.tar.gz">Source code (tar.gz)</a>
+            <?php endif; ?>
           </div>
         <?php else: ?>
           <div class="alert alert-warning">Nenhum asset disponível para a última release.</div>
