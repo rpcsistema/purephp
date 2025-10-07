@@ -1,0 +1,10 @@
+# (Opcional) Forçar HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Apontar tudo para o subdiretório pure-php/public
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_URI} !^/pure-php/public/
+RewriteRule ^(.*)$ /pure-php/public/$1 [L,QSA]

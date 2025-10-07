@@ -1,0 +1,12 @@
+# Ignore environment files and local assets
+.env
+public/assets/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.zip
+
+# OS files
+.DS_Store
+Thumbs.db
